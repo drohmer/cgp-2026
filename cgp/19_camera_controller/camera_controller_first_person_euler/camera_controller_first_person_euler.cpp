@@ -3,11 +3,7 @@
 
 namespace cgp
 {
-	void camera_controller_first_person_euler::update(mat4& camera_matrix_view) {
-		camera_matrix_view = camera_model.matrix_view();
-	}
-
-	void camera_controller_first_person_euler::action_mouse_move(mat4& camera_matrix_view)
+	void camera_controller_first_person_euler::action_mouse_move()
 	{
 		// Preconditions
 		assert_cgp_no_msg(inputs != nullptr);
@@ -36,11 +32,10 @@ namespace cgp
 				camera_model.manipulator_translate_front((p1 - p0).y); // right draw => move front/back
 		}
 
-		update(camera_matrix_view);
 	}
 
 
-	void camera_controller_first_person_euler::action_keyboard(mat4& )
+	void camera_controller_first_person_euler::action_keyboard()
 	{
 		if ( inputs->keyboard.last_action.is_pressed(GLFW_KEY_C) && inputs->keyboard.shift) {
 			is_cursor_trapped = !is_cursor_trapped;
@@ -57,7 +52,7 @@ namespace cgp
 	}
 
 
-	void camera_controller_first_person_euler::idle_frame(mat4& camera_matrix_view)
+	void camera_controller_first_person_euler::idle_frame()
 	{
 		// Preconditions
 		assert_cgp_no_msg(inputs != nullptr);
@@ -101,8 +96,6 @@ namespace cgp
 			camera_model.manipulator_translate_in_plane({-magnitude ,0 }); // left
 		if (inputs->keyboard.right)
 			camera_model.manipulator_translate_in_plane({magnitude ,0 }); // right
-
-		update(camera_matrix_view);
 
 	}
 

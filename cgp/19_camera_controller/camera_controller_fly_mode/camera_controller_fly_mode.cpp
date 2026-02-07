@@ -3,7 +3,7 @@
 namespace cgp
 {
 
-void camera_controller_fly_mode::action_mouse_move(mat4& camera_matrix_view)
+void camera_controller_fly_mode::action_mouse_move()
 {
 	// Preconditions
 	assert_cgp_no_msg(inputs != nullptr);
@@ -26,11 +26,10 @@ void camera_controller_fly_mode::action_mouse_move(mat4& camera_matrix_view)
 			camera_model.manipulator_rotate_roll_pitch_yaw(-dp.x, dp.y, 0);
 	}
 
-	update(camera_matrix_view);
 }
 
 
-void camera_controller_fly_mode::idle_frame(mat4& camera_matrix_view)
+void camera_controller_fly_mode::idle_frame()
 {
 	// Preconditions
 	assert_cgp_no_msg(inputs != nullptr);
@@ -57,7 +56,6 @@ void camera_controller_fly_mode::idle_frame(mat4& camera_matrix_view)
 
 	camera_model.manipulator_translate_front(speed * magnitude);
 
-	update(camera_matrix_view);
 }
 
 std::string camera_controller_fly_mode::doc_usage() const

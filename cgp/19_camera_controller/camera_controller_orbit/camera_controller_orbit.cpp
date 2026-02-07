@@ -5,11 +5,7 @@
 
 namespace cgp
 {
-	void camera_controller_orbit::update(mat4& camera_matrix_view)	{
-		camera_matrix_view = camera_model.matrix_view();
-	}
-
-	void camera_controller_orbit::action_mouse_move(mat4& camera_matrix_view)
+	void camera_controller_orbit::action_mouse_move()
 	{
 		// Preconditions
 		assert_cgp_no_msg(inputs != nullptr);
@@ -36,10 +32,9 @@ namespace cgp
 				camera_model.manipulator_translate_front((p1 - p0).y);
 		}
 
-		update(camera_matrix_view);
 	}
 
-	void camera_controller_orbit::idle_frame(mat4& camera_matrix_view)
+	void camera_controller_orbit::idle_frame()
 	{
 		// Preconditions
 		assert_cgp_no_msg(inputs != nullptr);
@@ -54,7 +49,6 @@ namespace cgp
 			camera_model.manipulator_rotate_roll_pitch_yaw(-angle_magnitude, 0, 0);
 		}
 
-		update(camera_matrix_view);
 	}
 
 	void camera_controller_orbit::look_at(vec3 const& eye, vec3 const& center, vec3 const& up)

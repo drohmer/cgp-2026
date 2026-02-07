@@ -7,12 +7,7 @@ namespace cgp
 {
 
 
-	void camera_controller_orbit_euler::update(mat4& camera_matrix_view)
-	{
-		camera_matrix_view = camera_model.matrix_view();
-	}
-
-	void camera_controller_orbit_euler::action_mouse_move(mat4& camera_matrix_view)
+	void camera_controller_orbit_euler::action_mouse_move()
 	{
 		// Preconditions
 		assert_cgp_no_msg(inputs != nullptr);
@@ -40,9 +35,8 @@ namespace cgp
 				camera_model.manipulator_translate_front((p1 - p0).y);
 		}
 
-		update(camera_matrix_view);
 	}
-	void camera_controller_orbit_euler::idle_frame(mat4& camera_matrix_view)
+	void camera_controller_orbit_euler::idle_frame()
 	{
 		// Preconditions
 		assert_cgp_no_msg(inputs != nullptr);
@@ -58,7 +52,6 @@ namespace cgp
 			camera_model.manipulator_twist_rotation_axis(-angle_magnitude); 
 		}
 
-		update(camera_matrix_view);
 	}
 
 	void camera_controller_orbit_euler::set_rotation_axis(vec3 const& rotation_axis)
@@ -86,14 +79,18 @@ namespace cgp
 	std::string camera_controller_orbit_euler::doc_usage() const
 	{
 		std::string doc;
-		doc += "Info Camera Controller: Orbit Euler - Camera that rotates around a central focus point.\n";
-		doc += "   Note: The camera uses Euler angle description (XYZ/rool-pitch-yaw Trait-Bryan convention).\n";
-		doc += "Camera control: \n";
-		doc += "   - Mouse left click + drag: Rotate the camera (pitch/yaw) around its focus point.\n";
-		doc += "   - Mouse right click + drag /Or/ 'k' + Mouse left click + drag: Camera move close/far from the central focus point (the focus point remains unchanged).\n";
-		doc += "   - Ctrl + Mouse left click + drag: Translate/Pan the camera and its central focus point in the viewspace plane.\n";
-		doc += "   - Ctrl + Mouse right click + drag /Or/ 'k' + Ctrl + Mouse left click + drag: Translate the camera and its central focus point in front/back direction.\n";
-		doc += "   - Shift + Key left/right (or key r/f): Rotate the \"up\" direction used in this Euler angle representation (rotation around z).\n";
+		doc += "Info Camera Controller: Orbit Euler\n";
+		doc += "  Camera that rotates around a central focus point.\n";
+		doc += "  Note: Uses Euler angle description (XYZ/roll-pitch-yaw Tait-Bryan convention).\n";
+		doc += "\n";
+		doc += "Camera control:\n";
+		doc += "  Mouse left + drag          : Rotate camera (pitch/yaw) around focus point\n";
+		doc += "  Mouse right + drag         : Move closer/farther from focus point\n";
+		doc += "   (or 'k' + Mouse left)       (focus point remains unchanged)\n";
+		doc += "  Ctrl + Mouse left + drag   : Pan camera and focus point in view plane\n";
+		doc += "  Ctrl + Mouse right + drag  : Translate camera and focus point front/back\n";
+		doc += "   (or 'k' + Ctrl + left)    \n";
+		doc += "  Shift + Left/Right (or r/f): Rotate \"up\" direction (rotation around z)\n";
 
 		return doc;
 	}

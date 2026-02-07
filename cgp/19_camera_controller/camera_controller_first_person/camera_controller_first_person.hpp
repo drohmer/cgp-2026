@@ -14,14 +14,12 @@ namespace cgp
 		float translation_speed = 1;
 		float rotation_speed = 1;
 
-		void action_mouse_move(mat4& camera_matrix_view);
+		void action_mouse_move();
 
 
 		// Key 'C' (in capital) to capture the cursor
-		void action_keyboard(mat4& camera_matrix_view);// camera_generic_base& camera);
-				void idle_frame(mat4& camera_matrix_view);
-
-		void update(mat4& camera_matrix_view);
+		void action_keyboard();
+		void idle_frame();
 
 		void look_at(vec3 const& eye, vec3 const& center, vec3 const& up);
 

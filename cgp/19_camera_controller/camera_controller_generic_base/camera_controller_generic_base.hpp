@@ -31,10 +31,10 @@ namespace cgp
 		void initialize(input_devices& inputs, window_structure& window);
 
 
-		void action_mouse_move(mat4&) {};
-		void action_keyboard(mat4&) {};
-		void action_mouse_click(mat4&) {};
-		void idle_frame(mat4&) {};
+		void action_mouse_move() {};
+		void action_keyboard() {};
+		void action_mouse_click() {};
+		void idle_frame() {};
 
 
 		// Pointers to the global state of the inputs (keyboard, mouse, etc)

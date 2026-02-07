@@ -11,11 +11,10 @@ namespace cgp
 	{
 		camera_orbit camera_model;
 
-		void action_mouse_move(mat4& camera_matrix_view);
-		void idle_frame(mat4& camera_matrix_view);
+		void action_mouse_move();
+		void idle_frame();
 
 		void look_at(vec3 const& eye, vec3 const& center, vec3 const& up);
-		void update(mat4& camera_matrix_view);
 
 		std::string doc_usage() const;
 	};

@@ -2,7 +2,7 @@
 
 namespace cgp 
 {
-	void camera_controller_2d_displacement::action_mouse_move(mat4& camera_matrix_view)
+	void camera_controller_2d_displacement::action_mouse_move()
 	{
 		// Preconditions
 		assert_cgp_no_msg(inputs != nullptr);
@@ -35,10 +35,9 @@ namespace cgp
 				camera_model.position_camera += (p1 - p0).y * move_front;
 		}
 
-		update(camera_matrix_view);
 	}
 
-	void camera_controller_2d_displacement::idle_frame(mat4& camera_matrix_view)
+	void camera_controller_2d_displacement::idle_frame()
 	{
 		// Preconditions
 		assert_cgp_no_msg(inputs != nullptr);
@@ -69,8 +68,6 @@ namespace cgp
 		if (inputs->keyboard.right || inputs->keyboard.is_pressed(GLFW_KEY_D))
 			camera_model.position_camera += 0.5f * magnitude * move_right;
 
-
-		update(camera_matrix_view);
 	}
 
 	std::string camera_controller_2d_displacement::doc_usage() const
