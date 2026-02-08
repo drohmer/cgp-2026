@@ -50,7 +50,7 @@ if(MSVC)
     )
     source_group(TREE ${CMAKE_SOURCE_DIR} FILES ${SRC_FILES})
     target_compile_options(${PROJECT_NAME} PRIVATE /W4 /permissive-
-        /wd4127 /wd4267 /wd4244 /wd4996 /wd26451 /wd26495
+        /wd4127 /wd4267 /wd4244 /wd4996 /wd26451 /wd26495 /wd4305 /wd4458
     )
 else()
     target_compile_options(${PROJECT_NAME} PRIVATE
