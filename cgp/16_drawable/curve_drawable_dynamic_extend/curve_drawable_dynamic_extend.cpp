@@ -14,10 +14,10 @@ namespace cgp
 
 		return *this;
 	}
-	curve_drawable_dynamic_extend& curve_drawable_dynamic_extend::initialize_data_on_gpu(int initial_capacity, opengl_shader_structure const& shader)
+	curve_drawable_dynamic_extend& curve_drawable_dynamic_extend::initialize_data_on_gpu(int initial_capacity, opengl_shader_structure const& shader_arg)
 	{
 		numarray<vec3> temp(initial_capacity); // dummy vector of size initial_capacity (values are not used)
-		curve_drawable::initialize_data_on_gpu(temp, shader);
+		curve_drawable::initialize_data_on_gpu(temp, shader_arg);
 		N_valid_points = 0;
 
 		return *this;
