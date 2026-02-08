@@ -61,12 +61,12 @@ else()
 endif()
 
 # Link required libraries for Unix (Glad needs dl, OpenGL framework on macOS)
-if(UNIX)
+if(UNIX AND NOT EMSCRIPTEN)
     target_link_libraries(${PROJECT_NAME} PRIVATE dl)
 endif()
 
 # GLFW library setup (windowing for OpenGL)
-if(UNIX)
+if(UNIX AND NOT EMSCRIPTEN)
     if(APPLE AND MACOS_GLFW_PRECOMPILED)
         # Use precompiled GLFW (option for macOS)
         message(STATUS "Using precompiled GLFW for macOS")
@@ -98,4 +98,25 @@ elseif(WIN32)
             "${CMAKE_CURRENT_LIST_DIR}/cgp/third_party/glfw/windows/lib-mingw-w64/libglfw3.a"
         )
     endif()
+endif()
+
+# Emscripten build (usage: mkdir build_em && cd build_em && emcmake cmake .. && emmake make; emrun index.html)
+if(EMSCRIPTEN)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE CGP_NO_DEBUG)
+    set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".html")
+    target_link_options(${PROJECT_NAME} PRIVATE
+        -sMAX_WEBGL_VERSION=2 -sUSE_GLFW=3 -sALLOW_MEMORY_GROWTH=1
+        --preload-file "${CMAKE_SOURCE_DIR}/shaders/@shaders/"
+    )
+    file(GLOB ASSETS_FILES "${CMAKE_SOURCE_DIR}/assets/*")
+    if(ASSETS_FILES)
+        target_link_options(${PROJECT_NAME} PRIVATE
+            --preload-file "${CMAKE_SOURCE_DIR}/assets/@assets/"
+        )
+    endif()
+    add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy
+            "${CMAKE_SOURCE_DIR}/scripts/emscripten/emscripten_template.html"
+            "${CMAKE_BINARY_DIR}/index.html"
+    )
 endif()
