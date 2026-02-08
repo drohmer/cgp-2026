@@ -49,7 +49,9 @@ if(MSVC)
         VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
     )
     source_group(TREE ${CMAKE_SOURCE_DIR} FILES ${SRC_FILES})
-    target_compile_options(${PROJECT_NAME} PRIVATE /W4 /permissive-)
+    target_compile_options(${PROJECT_NAME} PRIVATE /W4 /permissive-
+        /wd4127 /wd4267 /wd4244 /wd4996 /wd26451 /wd26495
+    )
 else()
     target_compile_options(${PROJECT_NAME} PRIVATE
         -Wall -Wextra -pedantic
