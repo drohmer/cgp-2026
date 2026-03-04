@@ -30,7 +30,7 @@ struct scene_structure : cgp::scene_inputs_generic {
 	// Context
 	// ****************************** //
 
-	// Environment controler (background color, )
+	// Environment controller (background color, )
 	environment_structure environment; 
 	// Window where the scene is displayed
 	window_structure window; 
